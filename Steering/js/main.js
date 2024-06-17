@@ -1,24 +1,28 @@
 /* global requestAnimationFrame */
-import { createCanvas, fillStyle, background, noStroke, rect } from './my.js'
+import { createCanvas, background } from './my.js'
+import { Boid } from './boid.js'
 
 export const main = () => {
   setup()
   render()
 }
 
+const flock = []
+
 const setup = () => {
   createCanvas(800, 600)
+  for (let i = 0; i < 50; i++) {
+    flock.push(new Boid())
+  }
 }
 
 const render = () => {
   background(51)
 
-  fillStyle('rgb(200 0 0)')
-  noStroke()
-  rect(10, 10, 50, 50)
-
-  fillStyle('rgb(0 0 200 / 50%)')
-  rect(30, 30, 50, 50)
+  for (const boid of flock) {
+    boid.update()
+    boid.show()
+  }
 
   requestAnimationFrame(render)
 }
