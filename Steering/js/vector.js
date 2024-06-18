@@ -12,8 +12,16 @@ class Vector {
     return vec
   }
 
+  static sub (a, b) {
+    return new Vector(a.x - b.x, a.y - b.y)
+  }
+
   heading () {
     return Math.atan2(this.y, this.x)
+  }
+
+  angleBetween (vector) {
+    return this.heading() - vector.heading()
   }
 
   fromAngle (angle) {
@@ -53,15 +61,22 @@ class Vector {
     this.y -= vector.y
   }
 
-  length () {
+  limit (max) {
+    if (this.mag() > max) {
+      this.setMag(max)
+    }
+  }
+
+  mag () {
     return Math.sqrt(this.x * this.x + this.y * this.y)
   }
 
   normalize () {
-    const length = this.length()
+    const length = this.mag()
     if (length > 0) {
       this.mult(1 / length)
     }
+    return this
   }
 
   setMag (mag) {
@@ -75,3 +90,4 @@ export const createVector = (x = 0, y = 0) => {
 }
 
 export const random2D = Vector.random2D
+export const sub = Vector.sub

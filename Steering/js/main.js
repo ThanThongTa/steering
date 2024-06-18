@@ -11,7 +11,7 @@ const flock = []
 
 const setup = () => {
   createCanvas(800, 600)
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
     flock.push(new Boid())
   }
 }
@@ -19,9 +19,18 @@ const setup = () => {
 const render = () => {
   background(51)
 
+  // use a snapshot of all velocities instead of one after the other
+
+  // spacial sub division, quad tree
+
+  // interface: perception radius, max force, max speed, each rule
+
+  // visual design: triangles
+
+  // view rule
+
   for (const boid of flock) {
-    boid.update()
-    boid.show()
+    boid.run(flock)
   }
 
   requestAnimationFrame(render)
